@@ -1,0 +1,24 @@
+{
+  "name": "karmania/phpframwork",
+  "type": "n",
+  "autoload": {
+    "files": [
+      "core/Helpers/functions.php"
+    ],
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "core/"
+
+    }
+  },
+  "require": {
+    "larapack/dd": "1.*",
+    "philo/laravel-blade": "^3.1",
+    "symfony/error-handler": "^5.4"
+  },
+  "config": {
+    "allow-plugins": {
+      "kylekatarnls/update-helper": true
+    }
+  }
+}
