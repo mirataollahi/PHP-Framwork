@@ -1,0 +1,18 @@
+
+
+
+.credential_table{
+    margin-top: 30px;
+}
+
+.table-header{
+    background-color: #383838 !important;
+    color: #f6f6f6 !important;
+}
+.table_loading{
+    margin-top: 100px;
+}
+
+.operation_btn{
+    cursor: pointer;
+}
