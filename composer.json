@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/" ,
+            "Core\\": "core/"
         },
         "files": ["helpers/base_helpers.php"]
     },
