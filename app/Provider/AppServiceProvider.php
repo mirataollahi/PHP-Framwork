@@ -3,7 +3,8 @@
 namespace App\Provider;
 
 use App\Request\CreateUserRequest;
-use App\Request\Request;
+use Core\Request\Request;
+use Core\Config\EnvironmentHandler;
 use Core\ViewEngine\ViewEngine;
 use Core\Providers\BaseServiceProvider;
 
@@ -18,6 +19,7 @@ class AppServiceProvider extends BaseServiceProvider
     public function handle(): void
     {
         $this->registerContainerServices([
+            'EnvironmentHandler' => EnvironmentHandler::class,
             'Request' => Request::class,
             'ViewEngine' => ViewEngine::class,
             'CreateCredentialsRequest' => CreateUserRequest::class,

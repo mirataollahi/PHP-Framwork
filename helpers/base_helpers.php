@@ -43,3 +43,15 @@ if (!function_exists('asset')) {
         return request()->url().$assetFileAddress;
     }
 }
+
+if (!function_exists('config')) {
+    /**
+     * Get config index
+     * @param string $configIndex config index name in app.php
+     * @return string
+     */
+    function config(string $configIndex): string
+    {
+        return \Core\Config\Config::find($configIndex);
+    }
+}

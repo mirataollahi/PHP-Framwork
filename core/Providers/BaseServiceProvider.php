@@ -2,9 +2,8 @@
 
 namespace Core\Providers;
 
-use App\Request\CreateUserRequest;
-use App\Request\Request;
-use Core\ViewEngine\ViewEngine;
+
+use Core\Contract\ServiceProviderInterface;
 
 abstract class BaseServiceProvider
 {
@@ -46,11 +45,21 @@ abstract class BaseServiceProvider
      */
     public function register(string $referenceAlias, mixed $classOrObject): void
     {
-        if (is_object($classOrObject))
+        if (is_object($classOrObject)) {
             static::$container[ucfirst($referenceAlias)] = $classOrObject;
+            if ($classOrObject instanceof ServiceProviderInterface)
+                $classOrObject->boot();
+        }
+
+
         else {
-            if (class_exists($classOrObject))
-                static::$container[ucfirst($referenceAlias)] = new $classOrObject;
+            if (class_exists($classOrObject)) {
+                $serviceInstance = new $classOrObject;
+                static::$container[ucfirst($referenceAlias)] = $serviceInstance;
+
+                if ($serviceInstance instanceof ServiceProviderInterface)
+                    $serviceInstance->boot();
+            }
         }
     }
 

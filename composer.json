@@ -13,6 +13,7 @@
         "larapack/dd": "^1.1",
         "jenssegers/blade": "^1.4",
         "ext-sqlite3": "*",
-        "illuminate/database": "^8.83"
+        "illuminate/database": "^8.83",
+        "vlucas/phpdotenv": "^5.6"
     }
 }

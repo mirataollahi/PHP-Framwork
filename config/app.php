@@ -3,6 +3,12 @@
 return [
 
 
+    /*
+     * Application base information
+     */
+    'app_name' => env('APP_NAME') ,
+
+
 
 
     /*
@@ -10,14 +16,14 @@ return [
      */
 
     'database' => [
-        'driver' => 'sqlite',
-        'host' => '127.0.0.1',
-        'database' => 'credentials_manager',
-        'username' => 'root',
-        'password' => 'password',
-        'charset' => 'utf8',
+        'driver' => env('DB_DRIVER' , '127.0.0.1'),
+        'host' => env('DB_HOST' , 'root'),
+        'database' => env('DB_DATABASE' ,'php_framework'),
+        'username' => env('DB_USER' , 'root'),
+        'password' => env('DB_PASSWORD' , 'password'),
+        'charset' => env('CHARSET' , 'utf8'),
         'collation' => 'utf8_unicode_ci',
-        'prefix' => '',
+        'prefix' => env('DB_PREFIX' , ''),
     ]
 
 

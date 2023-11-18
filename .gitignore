@@ -1,4 +1,5 @@
 .env
+.env.sample
 .idea
 composer.lock
 /node_modules

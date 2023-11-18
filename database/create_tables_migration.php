@@ -2,9 +2,9 @@
 
 require __DIR__ . "/../vendor/autoload.php";
 ini_set('display_errors', true);
-use App\Command\CommandLine as Cli;
+use Core\Command\CommandLine as Cli;
+use Core\Database\DatabaseConnection;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 
 //*****************************************************************************************
@@ -29,7 +29,7 @@ try
 
 
 
-$databaseConnection = new \App\Database\DatabaseConnection();
+$databaseConnection = new DatabaseConnection();
 $schema = $databaseConnection->engine->schema();
 
 
