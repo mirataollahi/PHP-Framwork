@@ -1,14 +1,16 @@
 <?php
 
-namespace Core\Bootloader;
+namespace Core\Application;
 
-use Core\Database\DatabaseConnection;
-use Core\Exceptions\ExceptionHandler;
+
 use App\Provider\AppServiceProvider;
+use Core\Database\DatabaseConnection;
+use Core\Exceptions\ControllerDoNotExistException;
+use Core\Exceptions\MethodDoNotExistException;
 use Core\Router\Router;
-use Exception;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionException;
 
 class Application
 {
@@ -19,25 +21,27 @@ class Application
         static::$serviceProvider = new AppServiceProvider();
     }
 
+    /**
+     * @throws ControllerDoNotExistException
+     * @throws MethodDoNotExistException
+     * @throws ReflectionException
+     */
     public function run(): mixed
     {
-        try {
-            $router = new Router();
-            new DatabaseConnection();
+        $router = new Router();
+        new DatabaseConnection();
 
 
-            [$controllerClass, $methodName] = $router->getRelatedControllerAndMethod();
-            $reflectionClass = new ReflectionClass($controllerClass);
-            $classInstance = $reflectionClass->newInstance();
+        [$controllerClass, $methodName] = $router->getRelatedControllerAndMethod();
+        $reflectionClass = new ReflectionClass($controllerClass);
+        $classInstance = $reflectionClass->newInstance();
 
-            $reflectionMethod = $reflectionClass->getMethod($methodName);
+        $reflectionMethod = $reflectionClass->getMethod($methodName);
 
-            $dependencies = $this->handleDependencyInjection(reflectionMethod: $reflectionMethod);
+        $dependencies = $this->handleDependencyInjection(reflectionMethod: $reflectionMethod);
 
-            return $reflectionMethod->invokeArgs($classInstance, $dependencies);
-        } catch (Exception $exception) {
-            return ExceptionHandler::handle($exception);
-        }
+        return $reflectionMethod->invokeArgs($classInstance, $dependencies);
+
 
     }
 

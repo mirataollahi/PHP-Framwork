@@ -15,9 +15,24 @@ require __DIR__ . "/../vendor/autoload.php";
 ini_set('display_errors' , true);
 
 
-use Core\Bootloader\Application;
+use Core\Application\Application;
 use Core\Response\ResponseGenerator;
 
+
+require __DIR__ . '/../php_error.php';
+
+
+
+/*
+|--------------------------------------------------------------------------
+| PHP Error viewer
+|--------------------------------------------------------------------------
+|
+| Display error with details
+|
+*/
+
+//\php_error\reportErrors();
 
 
 
@@ -32,11 +47,4 @@ use Core\Response\ResponseGenerator;
 | Show response and terminate application instance
 |
 */
-$app = new Application();
-
-
-$responseGenerator = new ResponseGenerator(
-    $app->run()
-);
-
-$responseGenerator->make();
+\Core\Bootstrap\ApplicationBootstrapper::boot();

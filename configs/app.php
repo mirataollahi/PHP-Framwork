@@ -9,6 +9,9 @@ return [
     'app_name' => env('APP_NAME' , 'php_framework') ,
 
 
+    'app_debug' => env('APP_DEBUG' , false) ,
+
+
 
 
     /*

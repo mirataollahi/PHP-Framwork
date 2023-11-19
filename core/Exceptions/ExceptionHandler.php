@@ -2,15 +2,21 @@
 
 namespace Core\Exceptions;
 
-use App\Contract\ResponseInterface;
-use App\Response\HtmlResponse;
-use App\Response\JsonResponse;
-use App\View\ViewEngine;
+use Core\Contract\ResponseInterface;
+use Core\Response\HtmlResponse;
+use Core\Response\JsonResponse;
+use Core\ViewEngine\ViewEngine;
 use Exception;
+use JetBrains\PhpStorm\NoReturn;
 
 class ExceptionHandler
 {
-    public static function handle(Exception $exception): ResponseInterface
+    /**
+     * @param Exception $exception
+     * @return void
+     */
+    #[NoReturn]
+    public static function handle(Exception $exception): void
     {
 
         $response = new JsonResponse();
@@ -25,6 +31,13 @@ class ExceptionHandler
             $response->fail([], $exception->getMessage(), $exception->getCode());
         }
 
-        return $response;
+        else {
+            $response->fail([
+                'file' => $exception->getFile() ,
+                'trace'=> $exception->getTrace() ,
+            ] , $exception->getMessage() , 500);
+        }
+
+        $response->terminate();
     }
 }

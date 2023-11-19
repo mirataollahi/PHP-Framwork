@@ -14,6 +14,6 @@ class ExampleController extends BaseController
      */
     public function welcome():HtmlResponse
     {
-        return $this->view('example.welcome');
+        return $this->view('exdample.welcome');
     }
 }
