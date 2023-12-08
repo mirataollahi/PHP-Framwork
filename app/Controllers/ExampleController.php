@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\BaseController\BaseController;
 use Core\Response\HtmlResponse;
 
@@ -14,6 +15,6 @@ class ExampleController extends BaseController
      */
     public function welcome():HtmlResponse
     {
-        return $this->view('exdample.welcome');
+        return $this->view('example.welcome');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 
+use Core\Application\Application;
 use Core\Request\Request;
 use Core\Request\RequestFactory;
 
@@ -53,5 +54,18 @@ if (!function_exists('config')) {
     function config(string $configIndex): string
     {
         return \Core\Config\Config::find($configIndex);
+    }
+}
+
+if (!function_exists('app')){
+
+    /**
+     * Create or get core application instance with singleton design
+     *
+     * @return Application Current running application instance
+     */
+    function app(): Application
+    {
+        return Application::create();
     }
 }

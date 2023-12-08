@@ -14,11 +14,37 @@ use ReflectionException;
 
 class Application
 {
-    protected static AppServiceProvider $serviceProvider;
+    /**
+     * Current static application instance
+     *
+     * @var Application
+     */
+    protected static Application $application;
 
-    public function __construct()
+    /**
+     * Application service provider and container
+     *
+     * @var AppServiceProvider
+     */
+    protected AppServiceProvider $serviceProvider;
+
+
+    /**
+     * Create or get current application instance with singleton design
+     *
+     * @return static
+     */
+    public static function create():static
     {
-        static::$serviceProvider = new AppServiceProvider();
+        if (!isset(static::$application))
+            static::$application = new self();
+
+        return self::$application;
+    }
+
+    private function __construct()
+    {
+        $this->serviceProvider = new AppServiceProvider();
     }
 
     /**
@@ -41,8 +67,6 @@ class Application
         $dependencies = $this->handleDependencyInjection(reflectionMethod: $reflectionMethod);
 
         return $reflectionMethod->invokeArgs($classInstance, $dependencies);
-
-
     }
 
 
@@ -60,7 +84,7 @@ class Application
                 $dependencyClassName = $dependencyClass->getName();
 
 
-                $dependencyService = (static::$serviceProvider->get(
+                $dependencyService = ($this->serviceProvider->get(
                     class_basename($dependencyClassName)
                 ));
 
@@ -71,6 +95,27 @@ class Application
             }
         }
         return $dependencies;
+    }
+
+    /**
+     * make object with application service provider
+     *
+     * @param string $classAlias
+     * @return mixed
+     */
+    public function make(string $classAlias):mixed
+    {
+        return $this->serviceProvider->get($classAlias);
+    }
+
+    /**
+     * @param string $classAlias
+     * @param string|object $classOrObject
+     * @return void
+     */
+    public function bind(string $classAlias , string|object $classOrObject): void
+    {
+        $this->serviceProvider->register($classAlias , $classOrObject);
     }
 
 }
