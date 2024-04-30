@@ -3,7 +3,7 @@
 The project is a web application framework with simple syntax , fast response generator .
 
 
-- Simple, Fast request livecycle 
-- Powerful service container to manage instances
+- Simple and fast response generator 
+- Powerful service container to manage app instances
 
 
